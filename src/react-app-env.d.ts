@@ -24,6 +24,8 @@ interface Settings {
   azureKey: string;
 }
 
+
+
 interface SDSContext {
   parameters: Parameters;
   asr: SpeechRecognition;
@@ -35,7 +37,12 @@ interface SDSContext {
   azureAuthorizationToken: string;
   audioCtx: any;
 
+  username: string;
   title: any;
+  day: any;
+  time: any;
+  famousPerson: any;
+  info: any;
 }
 
 type SDSEvent =
