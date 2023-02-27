@@ -52,8 +52,9 @@ interface SDSContext {
   title: any;
   day: any;
   time: any;
-  famousPerson: any;
+  person: any;
   info: any;
+  intent: any;
 }
 
 type SDSEvent =

@@ -14,7 +14,7 @@ interface Grammar {
   };
 }
 
-const grammar: Grammar = {
+/* const grammar: Grammar = {
   lecture: {
     intent: "None",
     entities: { title: "Dialogue systems lecture" },
@@ -23,12 +23,12 @@ const grammar: Grammar = {
     intent: "None",
     entities: { title: "Lunch at the canteen" },  
   },
-  "create a meeting": {
+  "meeting": {
     intent: "meeting",
     entities: {},
   },
-  "who is": {
-    intent: "searchInfo",
+  "famousPerson": {
+    intent: "famousPerson",
     entities: {},
   },
   "monday": {
@@ -63,9 +63,14 @@ const grammar: Grammar = {
     entities: { day: "Sunday" }
   },
   
-  "10": {
+  "today": {
     intent: "None",
-    entities: { time: "10:00" },
+    entities: { day: "today" },
+  },
+
+  "tomorrow": {
+    intent: "None",
+    entities: { day: "tomorrow" },
   },
 };
 
@@ -77,9 +82,9 @@ const getEntity = (context: SDSContext, entity: string) => {
     }
   }
   return false;
-};
+}; */
 
-
+/* 
 const yesnoQuestion = (context: SDSContext) => {
   let u = context.recResult[0].utterance.toLowerCase();
   const reYes = /yes/;
@@ -101,7 +106,7 @@ const getTime = (context: SDSContext) => {
   } else {
   return false
   }
-};
+}; */
 
 const speakTime = (time: string) => {
   if (time === "all day") {
@@ -111,8 +116,8 @@ const speakTime = (time: string) => {
   }
 };
 
-const reMeeting = /meeting/;
-const reSearchInfo = /who is ([\w é]+)/;
+// const reMeeting = /meeting/;
+// const reSearchInfo = /who is ([\w é]+)/;
 
 export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
   id: "appointment",
@@ -125,8 +130,8 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
     },
     init: {
       on: {
-        TTS_READY: "user",
-        CLICK: "user",
+        TTS_READY: "user", 
+        CLICK: "user", 
       },
     },
     user: {
@@ -135,9 +140,13 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         RECOGNISED: [
           {
             target: "welcome",
+            cond: (context) => !!context.nluResult.prediction.entities.length && context.nluResult.prediction.entities[0].category === "username",
             actions: assign({
-              username: (context) => context.recResult[0].utterance,
+              username: (context) => context.nluResult.prediction.entities[0].text.replace(/\.$/g, "")   
             }),
+          },
+          {
+            target: ".nomatch"
           },
         ],
         TIMEOUT: ".prompt",
@@ -150,6 +159,10 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         ask: {
           entry: send("LISTEN"),
         },
+        nomatch: {
+          entry: say("I'm sorry, could you repeat that?"),
+          on: { ENDSPEECH: "ask" },
+        }
       },
     },
     welcome: { 
@@ -158,24 +171,24 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         RECOGNISED: [
           {
             target: "famousPerson",
-            cond: (context) => !!context.recResult[0].utterance.toLowerCase().match(reSearchInfo),
+            cond: (context) => context.nluResult.prediction.topIntent === "famousPerson" && context.nluResult.prediction.entities[0].category === "person",
             actions: assign({
-              famousPerson: (context) => {
-                return context.recResult[0].utterance.toLowerCase().match(reSearchInfo)[1]
+              person: (context) => {
+                return context.nluResult.prediction.entities[0].text
               },
             })
-          },
+          },       
           {
             target: "meeting",
-            cond: (context) => !!context.recResult[0].utterance.toLowerCase().match(reMeeting),
+            cond: (context) => context.nluResult.prediction.topIntent === "meeting",
           },
           {
             target: "goodbye",
-            cond: (context) => yesnoQuestion(context) === "no"
+            cond: (context) => context.nluResult.prediction.topIntent === "Reject",
           },
           {
             target: ".nomatch",
-          }
+          }, 
         ],
         TIMEOUT: ".prompt",
       },
@@ -196,6 +209,9 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
           ),
           on: { ENDSPEECH: "ask" },
         },
+        getIntent: {
+
+        }
       },
     },
  famousPerson: {
@@ -204,14 +220,14 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         RECOGNISED: [
           {
             target: "meeting.day",
-            cond: (context) => yesnoQuestion(context) === 'yes',
+            cond: (context) => context.nluResult.prediction.topIntent === "Affirm",
             actions: assign({
-              title: (context) => `Meeting with ${context.famousPerson}`,
+              title: (context) => `Meeting with ${context.person}`,
             }),
           },
           {
             target: "goodbye",
-            cond: (context) => yesnoQuestion(context) === 'no',
+            cond: (context) => context.nluResult.prediction.topIntent === "Reject",
           },
           {
             target: ".nomatch"
@@ -223,7 +239,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         info: {
           invoke: {
             id: 'getInfo',
-            src: (context, event) => kbRequest(context.famousPerson),
+            src: (context, event) => kbRequest(context.person),
             onDone: [{
               target: 'success',
               cond: (context, event) => event.data.Abstract !== "",
@@ -290,13 +306,6 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         RECOGNISED: [
           {
             target: "day",
-            cond: (context) => !!getEntity(context, "title"),
-            actions: assign({
-              title: (context) => getEntity(context, "title"),
-            }),
-          },
-          {
-            target: "day",
             actions: assign({
               title: (context) => context.recResult[0].utterance.replace(/\.$/g, "")
             })
@@ -320,9 +329,9 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         RECOGNISED: [
           {
             target: "allday",
-            cond: (context) => !!getEntity(context, "day"),
+            cond: (context) => !!context.nluResult.prediction.entities.length && context.nluResult.prediction.entities[0].category === "dateTime",
             actions: assign({
-              day: (context) => getEntity(context, "day"),
+              day: (context) => context.nluResult.prediction.entities[0].resolutions[0].value,
             }),
           },
           {
@@ -353,15 +362,15 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         RECOGNISED: [
           {
             target: "doublecheck",
-            cond: (context) => yesnoQuestion(context) === 'yes',
+            cond: (context) => context.nluResult.prediction.topIntent === "Affirm",
             actions: assign({
               time: (context) => "all day",
             }),
           },
           {
             target: "time",
-            cond: (context) => yesnoQuestion(context) === 'no',
-          },
+            cond: (context) => context.nluResult.prediction.topIntent === "Reject",
+        },
           {
             target: ".nomatch",
           },
@@ -390,11 +399,12 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         RECOGNISED: [
           {
             target: "doublecheck",
-            cond: (context) => !!getTime(context),
+            cond: (context) => !!context.nluResult.prediction.entities.length && context.nluResult.prediction.entities[0].category === "dateTime",
             actions: assign({
-              time: (context) => getTime(context),
+              time: (context) => context.nluResult.prediction.entities[0].resolutions[0].value,    //context.recResult[0].utterance,
             }),
           },
+
           {
             target: ".nomatch",
           },
@@ -422,11 +432,11 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       on: { RECOGNISED: [
         {
         target: "confirm",
-        cond: (context) => yesnoQuestion(context) === 'yes',
+        cond: (context) => context.nluResult.prediction.topIntent === "Affirm",
         },
         {
           target: ".incorrect",
-          cond: (context) => yesnoQuestion(context) === 'no',
+          cond: (context) => context.nluResult.prediction.topIntent === "Reject",
         },
         {
           target: ".nomatch"
@@ -480,8 +490,3 @@ const kbRequest = (text: string) =>
 
 
 
-
-
-  /* TODO: 
-  - wrap all the meeting stuff in a superstate
-*/

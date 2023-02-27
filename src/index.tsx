@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-const defaultPassivity = 10;
+const defaultPassivity = 5;
 
 const machine = createMachine(
   {
