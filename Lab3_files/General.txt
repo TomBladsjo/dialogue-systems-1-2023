@@ -1,0 +1,8 @@
+Part_A.txt contains my SSML code for part A. Part_B.txt contains the lexicon for part B, and Part_C.txt contains the SSML code for the poem reading.
+
+I used Microsoft speech studio for this assignment, and was very frustrated with it, but I think that would have been the case whichever platform I chose. If I have learned anything from this experience, it is that speech synthesis does not like to be micro-managed. Also, some of the functionality in SSML (such as the emphasis element) is not covered by Microsoft. That was annoying, because that meant I couldn't prevent it from emphasising the wrong words. Anyway.
+
+For part B I found that the system has trouble pronouncing non-English words, such as Swedish names (Tove Jansson, Harry Martinson, Eyvind Johnson), Latin American names (Jorge Luis Borges) and places (Buenos Aires). In these cases it usually reads the names with English pronunciation rules, so that "Tove" (which should be pronounced [tu:ve]) rhymes with grove, and the e at the end of Jorge becomes a diphthong. It also pronounces "moomin" as "mummin". I managed to solve some of these problems with the following lexicon:
+(available at URI https://cvoiceprodneu.blob.core.windows.net/acc-public-files/b536f004df954ad2af9420d8774164f9/757445fe-6ad7-4f23-b33e-e457de115a03.xml)
+
+The video reference for the poetry reading can be found at https://www.youtube.com/watch?v=pyLtmxgZwmM. The poem I used ("And then the weather arrives") starts at 1:35. 

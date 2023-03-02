@@ -112,9 +112,11 @@ const speakTime = (time: string) => {
   if (time === "all day") {
     return "that lasts all day"
   } else {
-    return `at ${time} o'clock`
+    return `at <say-as interpret-as="time" format="hms24">${time}</say-as>`
   }
 };
+
+let Cheerful = `contour="(0%,-10%) (80%,+30%) (100%,-20%)"`
 
 // const reMeeting = /meeting/;
 // const reSearchInfo = /who is ([\w é]+)/;
@@ -153,14 +155,14 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         prompt: {
-          entry: say("Hello! What is your name?"),
+          entry: say(`<prosody ${Cheerful}>Hello!</prosody> <prosody ${Cheerful}>What is your name?</prosody>`),
           on: { ENDSPEECH: "ask" },
         },
         ask: {
           entry: send("LISTEN"),
         },
         nomatch: {
-          entry: say("I'm sorry, could you repeat that?"),
+          entry: say(`I'm sorry, could <emphasis level="none">you</emphasis> <prosody rate="-10%" ${Cheerful}><emphasis>repeat</emphasis></prosody> that?`),
           on: { ENDSPEECH: "ask" },
         }
       },
@@ -171,7 +173,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         RECOGNISED: [
           {
             target: "famousPerson",
-            cond: (context) => context.nluResult.prediction.topIntent === "famousPerson" && context.nluResult.prediction.entities[0].category === "person",
+            cond: (context) => context.nluResult.prediction.topIntent === "famousPerson",
             actions: assign({
               person: (context) => {
                 return context.nluResult.prediction.entities[0].text
@@ -196,7 +198,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         prompt: {
           entry: send((context) => ({
             type: "SPEAK",
-            value: `Welcome ${context.username}! How can I help you?`,
+            value: `<emphasis level="strong"><prosody pitch="+8%" ${Cheerful}>Welcome</prosody></emphasis> <prosody pitch="-5%">${context.username}</prosody>! How can I help you?`,
           })),
           on: { ENDSPEECH: "ask" },
         },
@@ -205,7 +207,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         },
         nomatch: {
           entry: say(
-            "Sorry, I don't know what that is. Tell me something I know."
+            `Sorry, I don't know what that is. Tell me something I know.`
           ),
           on: { ENDSPEECH: "ask" },
         },
@@ -264,19 +266,19 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
           failure: {
             entry: send((context) => ({
               type: "SPEAK",
-              value: "I'm sorry, an error seems to have occurred. Let's try again.", 
+              value: `I'm sorry, an error seems to have occurred. Let's try again.`, 
             })),
             on: {ENDSPEECH: "#root.dm.welcome"},  
           },
           noinfo: {
             entry: send((context) => ({
               type: "SPEAK",
-              value: "I'm sorry, I don't know anything about them. Can I do something else for you?", 
+              value: `I'm sorry, I don't know anything about them. Can I do something else for you?`, 
             })),
             on: {ENDSPEECH: "#root.dm.welcome.ask"},  
           },
         prompt: {
-          entry: say("Would you like to meet them?"),
+          entry: say(`Would you like to <prosody rate="slow" pitch="+20%">meet</prosody> <prosody rate="+10%">them?</prosody>`),
           on: { ENDSPEECH: "ask" },
         },
         ask: {
@@ -284,7 +286,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         },
         nomatch: {
           entry: say(
-            "Sorry, I didn't catch that."
+            `Sorry, I didn't catch that.`
           ),
           on: { ENDSPEECH: "ask" },
         },
@@ -293,7 +295,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
     goodbye: {
       entry: send((context) => ({
         type: "SPEAK",
-        value: "Ok, goodbye.",
+        value: `Ok, <prosody pitch="x-high" rate="+10%" ${Cheerful}>goodbye</prosody>.`,
       })),
       on: { ENDSPEECH: "init" },
     }, 
@@ -315,7 +317,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         prompt: {
-          entry: say("Ok, let's create a meeting. What is it about?"),
+          entry: say(`Ok, let's create a meeting. What is it about?`),
           on: { ENDSPEECH: "ask" },
         },
         ask: {
@@ -342,7 +344,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         prompt: {
-          entry: say("What day is the meeting?"),
+          entry: say(`What day is the meeting?`),
           on: { ENDSPEECH: "ask" },
         },
         ask: {
@@ -350,7 +352,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         },
         nomatch: {
           entry: say(
-            "Sorry, I didn't catch that."
+            `Sorry, I didn't catch that.`
           ),
           on: { ENDSPEECH: "ask" },
         },
@@ -379,7 +381,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         prompt: {
-          entry: say("Will it take the whole day?"),
+          entry: say(`Will it take the whole day?`),
           on: { ENDSPEECH: "ask" },
         },
         ask: {
@@ -387,7 +389,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         },
         nomatch: {
           entry: say(
-            "Sorry, I didn't catch that."
+            `Sorry, I didn't catch that.`
           ),
           on: { ENDSPEECH: "ask" },
         },
@@ -413,7 +415,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         prompt: {
-          entry: say("What time is the meeting?"),
+          entry: say(`What time is the meeting?`),
           on: { ENDSPEECH: "ask" },
         },
         ask: {
@@ -421,7 +423,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         },
         nomatch: {
           entry: say(
-            "Sorry, I didn't catch that."
+            `Sorry, I didn't catch that.`
           ),
           on: { ENDSPEECH: "ask" },
         },
@@ -448,7 +450,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         prompt: {
           entry: send((context) => ({
             type: "SPEAK",
-            value: `Do you want me to create a meeting titled ${context.title}, on ${context.day}, ${speakTime(context.time)}?`,
+            value: `Do you want me to create a meeting titled <emphasis><prosody rate="slow">${context.title}</prosody></emphasis>, on <say-as interpret-as="date" format="ymd">${context.day}</say-as>, ${speakTime(context.time)}?`,
           })),
           on: { ENDSPEECH: "ask" },
         },
@@ -457,13 +459,13 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
         },
         nomatch : {
           entry: say(
-            "Sorry, I didn't catch that."
+            `Sorry, I didn't catch that.`
           ),
           on : { ENDSPEECH: "ask"},
         },
         incorrect: {
           entry: say(
-            "I'm sorry, I misunderstood. We'll try again."
+            `I'm sorry, I misunderstood. We'll try again.`
           ),
           on: { ENDSPEECH: "#appointment.welcome" },
         },
@@ -472,7 +474,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
     confirm: {
       entry: send((context) => ({
         type: "SPEAK",
-        value: "Ok, your meeting has been created.",
+        value: `Ok, your meeting has been created.`,
       })),
       on: { ENDSPEECH: "#root.dm.init" },
     },

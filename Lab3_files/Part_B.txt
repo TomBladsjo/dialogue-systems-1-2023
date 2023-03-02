@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lexicon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2005/01/pronunciation-lexicon http://www.w3.org/TR/2007/CR-pronunciation-lexicon-20071212/pls.xsd" version="1.0" alphabet="ipa" xml:lang="en-US" xmlns="http://www.w3.org/2005/01/pronunciation-lexicon">
+  <lexeme>
+    <grapheme>BTW</grapheme>
+    <alias>By the way</alias>
+  </lexeme>
+  <lexeme>
+    <grapheme>J. R. R. Tolkien</grapheme>
+    <alias>J R R Tolkien</alias>
+  </lexeme>
+  <lexeme>
+    <grapheme>Hello</grapheme>
+    <phoneme>hɛ.loˈ</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>Jolie</grapheme>
+    <phoneme>dʒoʊˈliː</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>Tove Jansson</grapheme>
+    <alias>ToveJansson</alias>
+  </lexeme>
+  <lexeme>
+    <grapheme>ToveJansson</grapheme>
+    <phoneme>ˈtuː.ve.jɑːn.son</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>Harry Martinson</grapheme>
+    <alias>HarryMartinson</alias>
+  </lexeme>
+  <lexeme>
+    <grapheme>HarryMartinson</grapheme>
+    <phoneme>ˈhaɾ.y.ˈmaʈ.ɪn.ˌson</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>Eyvind</grapheme>
+    <phoneme>ˈeɪ.vɪnd</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>Moomin</grapheme>
+    <phoneme>ˈmuː.mɪn</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>Moomins</grapheme>
+    <phoneme>ˈmuː.mɪns</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>Moominvalley</grapheme>
+    <alias>Moomin valley</alias>
+  </lexeme>
+  <lexeme>
+    <grapheme>Jorge</grapheme>
+    <phoneme>ˈxor.xɛ</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>Borges</grapheme>
+    <phoneme>ˈbor.xɛs</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>Buenos Aires</grapheme>
+    <alias>BuenosAires</alias>
+  </lexeme>
+  <lexeme>
+    <grapheme>BuenosAires</grapheme>
+    <phoneme>bu.ˈɛ.nos.ˈa.ɪr.es</phoneme>
+  </lexeme>
+</lexicon>

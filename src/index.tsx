@@ -305,7 +305,7 @@ function App({ domElement }: any) {
         /* console.log('Recognition stopped.'); */
       },
       ttsStart: (context) => {
-        let content = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xml:lang="en-US"><voice name="${context.voice.name}">`;
+        let content = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xml:lang="en-US"><voice name="${context.voice.name}"><lexicon uri="https://cvoiceprodneu.blob.core.windows.net/acc-public-files/b536f004df954ad2af9420d8774164f9/757445fe-6ad7-4f23-b33e-e457de115a03.xml" />`;
         content =
           content +
           (process.env.REACT_APP_TTS_LEXICON

@@ -1,0 +1,19 @@
+<!--ID=B7267351-473F-409D-9765-754A8EBCDE05;Version=1|{"VoiceNameToIdMapItems":[{"Id":"19eaa6ae-0655-4704-928b-28e1f1b917b2","Name":"Microsoft Server Speech Text to Speech Voice (en-US, JennyMultilingualNeural)","ShortName":"en-US-JennyMultilingualNeural","Locale":"en-US","VoiceType":"StandardVoice"}]}-->
+<!--ID=FCB40C2B-1F9F-4C26-B1A1-CF8E67BE07D1;Version=1|{"Files":{}}-->
+<!--ID=5B95B1CC-2C7B-494F-B746-CF22A0E779B7;Version=1|{"Locales":{"en-US":{"AutoApplyCustomLexiconFiles":[{}]}}}-->
+<speak xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" version="1.0" xml:lang="en-US"><voice name="en-US-JennyMultilingualNeural">
+<prosody range="x-high">
+        I have your <emphasis level="strong"><prosody rate="-5%">calendar</prosody></emphasis> <emphasis level="reduced"><prosody pitch="-5%" volume="-10%">open</prosody></emphasis>. 
+        <break strength="weak" /> 
+        For what <emphasis level="strong"><prosody rate="-10%">date</prosody></emphasis>? 
+        <break strength="medium" /> 
+        What <emphasis level="strong"><prosody rate="slow">time</prosody></emphasis> would you like to <emphasis level="moderate"><prosody rate="-5%">start</prosody></emphasis>? 
+        <break strength="medium" /> 
+        How much time do you want to <emphasis level="reduced"><prosody rate="default" volume="soft">block</prosody></emphasis> <emphasis level="strong"><prosody rate="slow">out</prosody></emphasis>? 
+        <break strength="medium" />
+        What shall we <emphasis level="strong">call</emphasis> this? 
+        <break strength="medium" />
+        Ok. I have created a meeting<break time="50ms" /> <emphasis level="none">titled</emphasis> <prosody rate="-5%"><say-as interpret-as="characters" format="characters">ABC</say-as></prosody> on Friday from <say-as interpret-as="time" format="hms12">06:00 PM</say-as> to <say-as interpret-as="time" format="hms12">09:00 PM</say-as>.
+        <break strength="medium" />
+ Is that correct?</prosody>
+</voice></speak>
