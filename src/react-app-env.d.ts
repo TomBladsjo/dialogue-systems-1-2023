@@ -55,6 +55,11 @@ interface SDSContext {
   person: any;
   info: any;
   intent: any;
+  topic: any;
+  promptcount: number;
+  nomatchcount:number;
+  asrHypothesis: Hypothesis;
+  nluHypothesis: any;
 }
 
 type SDSEvent =
