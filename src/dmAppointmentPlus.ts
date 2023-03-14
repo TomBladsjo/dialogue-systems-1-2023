@@ -108,7 +108,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         confidenceCheck: {
-          initial: "treshold",
+          initial: "threshold",
           on: {
             RECOGNISED: [
               {
@@ -126,7 +126,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
             TIMEOUT: ".prompt",
           },
           states: {
-            treshold: {
+            threshold: {
               always: [
                 {target: "#user.transition",
                 cond: (context) => asrTreshold(context) },
@@ -265,7 +265,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         confidenceCheck: {
-          initial: "treshold",
+          initial: "threshold",
           on: {
             RECOGNISED: [
               {
@@ -283,7 +283,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
             TIMEOUT: ".prompt",
           },
           states: {
-            treshold: {
+            threshold: {
               always: [
                 {target: "#welcome.transition",
                 cond: (context) => asrTreshold(context) },
@@ -484,7 +484,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         confidenceCheck: {
-          initial: "treshold",
+          initial: "threshold",
           on: {
             RECOGNISED: [
               {
@@ -502,7 +502,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
             TIMEOUT: ".prompt",
           },
           states: {
-            treshold: {
+            threshold: {
               always: [
                 {target: "#meetThem.transition",
                 cond: (context) => asrTreshold(context) },
@@ -659,7 +659,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         confidenceCheck: {
-          initial: "treshold",
+          initial: "threshold",
           on: {
             RECOGNISED: [
               {
@@ -677,7 +677,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
             TIMEOUT: ".prompt",
           },
           states: {
-            treshold: {
+            threshold: {
               always: [
                 {target: "#meeting.title.transition",
                 cond: (context) => asrTreshold(context) },
@@ -776,7 +776,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         confidenceCheck: {
-          initial: "treshold",
+          initial: "threshold",
           on: {
             RECOGNISED: [
               {
@@ -794,7 +794,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
             TIMEOUT: ".prompt",
           },
           states: {
-            treshold: {
+            threshold: {
               always: [
                 {target: "#meeting.day.transition",
                 cond: (context) => asrTreshold(context) },
@@ -932,7 +932,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         confidenceCheck: {
-          initial: "treshold",
+          initial: "threshold",
           on: {
             RECOGNISED: [
               {
@@ -950,7 +950,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
             TIMEOUT: ".prompt",
           },
           states: {
-            treshold: {
+            threshold: {
               always: [
                 {target: "#meeting.allday.transition",
                 cond: (context) => asrTreshold(context) },
@@ -1092,7 +1092,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         confidenceCheck: {
-          initial: "treshold",
+          initial: "threshold",
           on: {
             RECOGNISED: [
               {
@@ -1110,7 +1110,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
             TIMEOUT: ".prompt",
           },
           states: {
-            treshold: {
+            threshold: {
               always: [
                 {target: "#meeting.time.transition",
                 cond: (context) => asrTreshold(context) },
@@ -1248,7 +1248,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
       },
       states: {
         confidenceCheck: {
-          initial: "treshold",
+          initial: "threshold",
           on: {
             RECOGNISED: [
               {
@@ -1262,7 +1262,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = {
             TIMEOUT: "#meeting.doublecheck.prompt",
           },
           states: {
-            treshold: {
+            threshold: {
               always: [
                 {target: "#meeting.doublecheck.transition",
                 cond: (context) => asrTreshold(context) },
